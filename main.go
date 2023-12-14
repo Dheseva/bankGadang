@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -10,7 +9,6 @@ import (
 
 func main() {
 	LoadEnv()
-	fmt.Println(getPort())
 	server := NewAPIServer(":3000")
 	server.Run()
 }
