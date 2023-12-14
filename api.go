@@ -2,6 +2,8 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -41,10 +43,23 @@ func (s *APIServer) Run(){
 	router := mux.NewRouter()
 
 	router.HandleFunc("/account", makeHTTPHandleFunc(s.handlerAccount))
+
+	log.Println("JSON API server running on port: ", s.listenAddr)
+
+	http.ListenAndServe(s.listenAddr, router)
 }
 
 func (s *APIServer) handlerAccount(w http.ResponseWriter, r *http.Request) error {
-	return nil
+	if r.Method == "GET" {
+		return s.handlerGetAccount(w,r)
+	}
+	if r.Method == "POST" {
+		return s.handlerCreateAccount(w,r)
+	}
+	if r.Method == "DELETE" {
+		return s.handlerDeleteAccount(w,r)
+	}
+	return fmt.Errorf("Request %s invalid", r.Method)
 }
 
 func (s *APIServer) handlerGetAccount(w http.ResponseWriter, r *http.Request) error {
