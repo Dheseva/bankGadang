@@ -59,7 +59,7 @@ func (s *APIServer) handlerAccount(w http.ResponseWriter, r *http.Request) error
 	if r.Method == "DELETE" {
 		return s.handlerDeleteAccount(w,r)
 	}
-	return fmt.Errorf("Request %s invalid", r.Method)
+	return fmt.Errorf("request %s invalid", r.Method)
 }
 
 func (s *APIServer) handlerGetAccount(w http.ResponseWriter, r *http.Request) error {
